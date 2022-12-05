@@ -11,28 +11,19 @@ import (
 func main() {
 	file, _ := os.Open("day-4/input.txt")
 	scanner := bufio.NewScanner(file)
-	sections := make([][]int, 0)
   complete := 0
   partial := 0
 
 	defer file.Close()
 
 	for scanner.Scan() {
-		pairs := strings.Split(scanner.Text(), ",")
-
-		for _, pair := range pairs {
-			nums := strings.Split(pair, "-")
-			start, _ := strconv.Atoi(nums[0])
-			end, _ := strconv.Atoi(nums[1])
-			sections = append(sections, []int{start, end})
-		}
-	}
-
-	for i := 1; i < len(sections); i += 2 {
-		firstStart := sections[i-1][0]
-		firstEnd := sections[i-1][1]
-		secondStart := sections[i][0]
-		secondEnd := sections[i][1]
+		elfs := strings.Split(scanner.Text(), ",")
+    first := strings.Split(elfs[0], "-")
+    second := strings.Split(elfs[1], "-")
+		firstStart, _ := strconv.Atoi(first[0])
+		firstEnd, _ := strconv.Atoi(first[1])
+		secondStart, _ := strconv.Atoi(second[0])
+		secondEnd, _ := strconv.Atoi(second[1])
 
 		if (firstStart >= secondStart && firstStart <= secondEnd) &&
 			(firstEnd >= secondStart && firstEnd <= secondEnd) ||
