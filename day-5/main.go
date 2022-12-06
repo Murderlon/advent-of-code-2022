@@ -43,7 +43,7 @@ func main() {
 					stack = make([]string, 0)
 				}
 			}
-			two = append(two, one...)
+			deepClone(&two, &one)
 		case instructionRegex.MatchString(line):
 			s := strings.Fields(line)
 			amount, _ := strconv.Atoi(s[1])
@@ -63,6 +63,16 @@ func main() {
 
 	fmt.Println("Part one:", message(one))
 	fmt.Println("Part two:", message(two))
+}
+
+func deepClone(dst *[][]string, source *[][]string) {
+  d := *dst
+  s := *source
+	for i := range s {
+		d = append(d, make([]string, len(s[i])))
+		copy(d[i], s[i])
+	}
+  *dst = d
 }
 
 func message(s [][]string) string {
